@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'modules/**'
-      - 'envs/dev/**'
-      - 'policies/**'
-      - '.github/workflows/terraform-dev.yml'
 
   workflow_dispatch:
 
