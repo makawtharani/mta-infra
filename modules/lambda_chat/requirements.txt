@@ -1,0 +1,2 @@
+# No dependencies needed - using Lambda layer for boto3
+

@@ -1,0 +1,200 @@
+{
+  "info": {
+    "name": "MTA Chat Backend API",
+    "description": "Collection for testing the MTA AI chatbot backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Dev Environment",
+      "item": [
+        {
+          "name": "Chat - Basic Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"What aesthetic services do you offer?\"\n}"
+            },
+            "url": {
+              "raw": "{{dev_api_endpoint}}",
+              "host": [
+                "{{dev_api_endpoint}}"
+              ]
+            },
+            "description": "Basic chat request to test the AI bot"
+          },
+          "response": []
+        },
+        {
+          "name": "Chat - With Custom System Prompt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Tell me about your clinic\",\n  \"system_prompt\": \"You are a helpful assistant for Medical Tech Aesthetic. Be professional and concise.\"\n}"
+            },
+            "url": {
+              "raw": "{{dev_api_endpoint}}",
+              "host": [
+                "{{dev_api_endpoint}}"
+              ]
+            },
+            "description": "Chat request with custom system prompt override"
+          },
+          "response": []
+        },
+        {
+          "name": "Test Rate Limiting",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"test\"\n}"
+            },
+            "url": {
+              "raw": "{{dev_api_endpoint}}",
+              "host": [
+                "{{dev_api_endpoint}}"
+              ]
+            },
+            "description": "Send this multiple times quickly (>10 requests in 60 seconds) to trigger rate limiting"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Request - Missing Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"foo\": \"bar\"\n}"
+            },
+            "url": {
+              "raw": "{{dev_api_endpoint}}",
+              "host": [
+                "{{dev_api_endpoint}}"
+              ]
+            },
+            "description": "Test error handling - missing required 'message' field"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Request - Empty Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{dev_api_endpoint}}",
+              "host": [
+                "{{dev_api_endpoint}}"
+              ]
+            },
+            "description": "Test error handling - empty message"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Request - Bad JSON",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{invalid json"
+            },
+            "url": {
+              "raw": "{{dev_api_endpoint}}",
+              "host": [
+                "{{dev_api_endpoint}}"
+              ]
+            },
+            "description": "Test error handling - malformed JSON"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Production Environment",
+      "item": [
+        {
+          "name": "Chat - Basic Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"What aesthetic services do you offer?\"\n}"
+            },
+            "url": {
+              "raw": "{{prod_api_endpoint}}",
+              "host": [
+                "{{prod_api_endpoint}}"
+              ]
+            },
+            "description": "Basic chat request to production API"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "dev_api_endpoint",
+      "value": "https://YOUR-API-ID.execute-api.us-east-1.amazonaws.com/dev/chat",
+      "type": "string"
+    },
+    {
+      "key": "prod_api_endpoint",
+      "value": "https://YOUR-API-ID.execute-api.us-east-1.amazonaws.com/prod/chat",
+      "type": "string"
+    }
+  ]
+}
+
